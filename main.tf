@@ -17,7 +17,7 @@ output "something" {
 
 # Create metadata repo
 resource "google_sql_database_instance" "main" {
-    name = "metadata-main"
+    name = "metadata-main-${random_string.sql_suffix.result}"
     database_version = "SQLSERVER_2019_EXPRESS"
     deletion_protection = "false"
     root_password = data.google_secret_manager_secret_version.my-secret.secret_data
@@ -45,5 +45,18 @@ resource "google_compute_instance" "vm_instance" {
             image = "debian-cloud/debian-9"
         }
     }
-    network = google_compute_network.vpc_network.self_link
+    network_interface {
+        network = google_compute_network.vpc_network.self_link
+        access_config {
+        }
+    }
+}
+
+resource "random_string" "sql_suffix" {
+    length = 3
+    special = false
+}
+
+output "something2" {
+    value = random_string.sql_suffix
 }

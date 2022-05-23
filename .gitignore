@@ -1,5 +1,10 @@
 
 
 
+# Python Environment configs
 .python-version
+
+# Terraform configs
 .terraform*
+terraform.*
+

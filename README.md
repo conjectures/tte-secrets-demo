@@ -23,14 +23,17 @@ terraform init
 Authorise with google account (using gcloud cli or other methods)
 Make project
 Edit project name to local vars 
-Enable google APIs:
-* secret-manager
-* cloud sql
-* compute engine
+Enable following google APIs:
+* secretmanager.googleapis.com
+* compute.googleapis.com
 
 ## Usage
 
 ## Support
+
+## Notes
+- gcp instance names should not contain caps.
+- 
 
 ## Roadmap
 

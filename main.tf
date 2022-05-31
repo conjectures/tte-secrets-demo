@@ -23,9 +23,12 @@ data "google_secret_manager_secret_version" "my-secret" {
 # Create metadata repo
 resource "google_sql_database_instance" "main" {
     name = "metadata-main-${random_string.sql_suffix.result}"
-    database_version = "SQLSERVER_2019_EXPRESS"
+    database_version = "SQLSERVER_2019_STANDARD"
     deletion_protection = "false"
     root_password = data.google_secret_manager_secret_version.my-secret.secret_data
+
+    depends_on = [google_service_networking_connection.private_vpc_connection]
+
     settings {
         tier = "db-custom-1-3840"
         # ip_configuration
@@ -34,6 +37,7 @@ resource "google_sql_database_instance" "main" {
             private_network = google_compute_network.vpc_network.id
         }
     }
+
 }
 
 
